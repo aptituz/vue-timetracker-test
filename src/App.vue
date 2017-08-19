@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <time-tracker-entry-input v-on:save="updateItem" ></time-tracker-entry-input>
+    <time-tracker-entry-input v-bind:item="edited_item" v-on:save="updateItem" ></time-tracker-entry-input>
     <hr>
-    <time-tracker-entries :items="items"></time-tracker-entries>
+    <time-tracker-entries v-on:edit="editItem" v-on:remove="removeItem" :items="items"></time-tracker-entries>
   </div>
 </template>
 
@@ -10,11 +10,15 @@
 import TimeTrackerEntryInput from './components/TimetrackerEntryInput.vue'
 import TimeTrackerEntries from './components/TimetrackerEntries.vue'
 
+var moment = require('moment');
+
 export default {
   name: 'app',
   data: function(){
     return {
-     items: [],
+      id: 0,
+      items: [],
+      edited_item: this.newItem()
     }
   },
   components: {
@@ -22,9 +26,40 @@ export default {
     TimeTrackerEntries
   },
   methods: {
+    newItem: function() {
+      return {
+        date:       moment().format('D.M.Y'),
+        start_time: moment().format('HH:MM'),
+        end_time:   moment().add('15', "m").format('HH:MM'),
+        description: ''
+      }
+    },
+    editItem: function(item) {
+      this.edited_item = item
+    },
+    removeItem: function(item) {
+      index = indexOf(item);
+      this.items.splice(index, 1)
+    },
     updateItem: function(item) {
-      alert("updating")
-      this.items.push(item);
+      this.edited_item = this.newItem();
+
+      var index = this.items.indexOf(item);
+
+
+      let updated_item = {
+        id: item.id || this.id++,
+        date: item.date,
+        start_time: item.start_time,
+        end_time: item.end_time,
+        description: item.description
+      };
+
+      if (index !== -1) {
+        this.items[index] = updated_item;
+      } else {
+        this.items.push(updated_item);
+      }
     }
   }
 }
