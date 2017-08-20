@@ -26,11 +26,16 @@ export default {
     TimeTrackerEntries
   },
   methods: {
+    time_rounded_to_minutes: function (minutes) {
+      var offset = 1000 * 60 * minutes;
+      var now    = new Date;
+      return moment(Math.round(now.getTime() / offset) * offset)
+    },
     newItem: function() {
       return {
-        date:       moment().format('D.M.Y'),
-        start_time: moment().format('HH:MM'),
-        end_time:   moment().add('15', "m").format('HH:MM'),
+        date:       this.time_rounded_to_minutes(5).format('D.M.Y'),
+        start_time: this.time_rounded_to_minutes(5).format('HH:mm'),
+        end_time:   this.time_rounded_to_minutes(5).add('15', "m").format('HH:mm'),
         description: ''
       }
     },
