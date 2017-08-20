@@ -2,12 +2,9 @@ language: node_js
 node_js:
   - "node"
 
-env:
-  - NODE_ENV=production
-
 script:
   - npm install
-  - npm run build
+  - NODE_ENV=production npm run build
 
 
 deploy:
