@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <time-tracker-entry-input v-bind:item="edited_item" v-on:save="updateItem" ></time-tracker-entry-input>
+    <time-tracker-entry-input v-bind:item="item" v-on:save="updateItem" ></time-tracker-entry-input>
     <hr>
     <time-tracker-entries v-on:edit="editItem" v-on:remove="removeItem" :items="items"></time-tracker-entries>
   </div>
@@ -18,7 +18,7 @@ export default {
     return {
       id: 0,
       items: [],
-      edited_item: this.newItem()
+      item: this.newItem()
     }
   },
   components: {
@@ -35,18 +35,16 @@ export default {
       }
     },
     editItem: function(item) {
-      this.edited_item = item
+      this.item = item
     },
     removeItem: function(item) {
       index = indexOf(item);
       this.items.splice(index, 1)
     },
     updateItem: function(item) {
-      this.edited_item = this.newItem();
+      this.item = this.newItem();
 
       var index = this.items.indexOf(item);
-
-
       let updated_item = {
         id: item.id || this.id++,
         date: item.date,
