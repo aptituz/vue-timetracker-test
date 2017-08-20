@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import TimeTrackerEntryInput from './components/TimetrackerEntryInput.vue'
-import TimeTrackerEntries from './components/TimetrackerEntries.vue'
+import TimeTrackerEntryInput from '../src/components/TimetrackerEntryInput.vue'
+import TimeTrackerEntries from '../src/components/TimetrackerEntries.vue'
 
 var moment = require('moment');
 
