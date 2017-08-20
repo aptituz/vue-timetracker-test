@@ -3,6 +3,7 @@
     <time-tracker-entry-input v-bind:item="item" v-on:save="updateItem" ></time-tracker-entry-input>
     <hr>
     <time-tracker-entries v-on:edit="editItem" v-on:remove="removeItem" :items="items"></time-tracker-entries>
+
   </div>
 </template>
 
